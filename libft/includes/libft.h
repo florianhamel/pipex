@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 10:53:38 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/16 12:37:40 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/17 01:16:17 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,6 @@ void	ft_putnbr_fd(int n, int fd);
 ** ---------- Personnal Collection ----------
 */
 void	*ft_malloc(size_t size, size_t len);
+int		ft_is_ws(int c);
 
 #endif

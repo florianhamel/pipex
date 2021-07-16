@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 22:46:38 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/12 16:53:31 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/17 01:20:08 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
-# include <stdio.h>
 # include <sys/wait.h>
 # include <errno.h>
 # include <string.h>
+
+#include <stdio.h>
 
 # define ACCESS 0
 # define FAILURE -1
@@ -55,8 +56,14 @@ void		start_pipex(int ac, char **av, char **envp);
 /*
 ** pipex.c
 */
-char *const	*get_args(t_cmd *cmd);
+void		free_split(char **arr);
+char		*concat_path_bin(const char *path, const char *name_bin);
+char		*path_maker(char **arr_paths, const char *name_bin);
+void		exit_wrong_cmd(char *name_bin);
+char		*get_path_bin(t_cmd *cmd, char **envp);
+
 int			check_and_open(const char *file, int mode);
+char		**get_args(t_cmd *cmd, char **envp);
 int			pipex_first(t_files files, t_cmd *cmd, char **envp);
 void		pipex_last(int fd_next, t_files files, t_cmd *cmd, char **envp);
 void		pipex(t_files files, t_cmd *lst_cmd, char **envp);
