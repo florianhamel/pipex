@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 10:53:38 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/11 15:26:35 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/16 12:37:40 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define LIBFT_H
 
 # include <stdlib.h>
-# include <stdio.h>
-# include <string.h>
 # include <unistd.h>
 
 void	*ft_memset(void *b, int c, size_t len);
@@ -53,6 +51,9 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 
+/*
+** ---------- Personnal Collection ----------
+*/
 void	*ft_malloc(size_t size, size_t len);
 
 #endif
