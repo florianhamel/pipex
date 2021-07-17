@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/17 12:16:32 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/17 18:38:00 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/17 20:39:59 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	check_cmd_found(t_cmd *cmd, char **envp)
 	if (envp[i] && ft_strncmp(envp[i], "PATH", 4) == 0)
 	{
 		arr_paths = ft_split(&envp[i][5], ':');
-		path_bin = path_maker(arr_paths, arr_cmd[0]);
+		path_bin = path_maker(arr_paths, name_bin);
 		ft_free_arr(arr_paths);
 		ft_free((void **)&name_bin);
 	}
