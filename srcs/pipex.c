@@ -6,14 +6,14 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 14:02:39 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/17 18:20:38 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/17 21:08:00 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include "libft.h"
 
-int	check_and_open(const char *file, int mode)
+int	check_and_open(const char *file, int mode, t_cmd *cmd)
 {
 	int	fd;
 
@@ -24,7 +24,10 @@ int	check_and_open(const char *file, int mode)
 	else
 		fd = open(file, O_WRONLY | O_TRUNC | O_CREAT, 0666);
 	if (fd == FAILURE)
+	{
+		ft_free_lst(cmd);
 		ft_exit(file);
+	}
 	return (fd);
 }
 
@@ -58,7 +61,7 @@ int	pipex_first(t_files files, t_cmd *cmd, char **envp)
 		ft_exit(NULL);
 	else if (pid == CHILD)
 	{
-		infile = check_and_open(files.infile, INFILE);
+		infile = check_and_open(files.infile, INFILE, cmd);
 		args = get_args(cmd, envp);
 		dup_std(infile, fd[1]);
 		close(infile);
@@ -84,7 +87,7 @@ void	pipex_last(int fd_next, t_files files, t_cmd *cmd, char **envp)
 		ft_exit(NULL);
 	if (pid == CHILD)
 	{
-		outfile = check_and_open(files.outfile, OUTFILE);
+		outfile = check_and_open(files.outfile, OUTFILE, cmd);
 		args = get_args(cmd, envp);
 		dup2(fd_next, 0);
 		dup2(outfile, 1);

@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 22:46:38 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/17 18:40:12 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/17 21:06:56 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char		*get_path_bin(t_cmd *cmd, char **envp);
 /*
 ** pipex.c
 */
-int			check_and_open(const char *file, int mode);
+int			check_and_open(const char *file, int mode, t_cmd *cmd);
 char		**get_args(t_cmd *cmd, char **envp);
 int			pipex_first(t_files files, t_cmd *cmd, char **envp);
 void		pipex_last(int fd_next, t_files files, t_cmd *cmd, char **envp);
