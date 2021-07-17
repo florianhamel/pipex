@@ -6,7 +6,7 @@
 #    By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/25 20:20:38 by florianhame       #+#    #+#              #
-#    Updated: 2021/07/17 12:26:47 by fhamel           ###   ########.fr        #
+#    Updated: 2021/07/17 18:41:48 by fhamel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,11 +31,13 @@ _SRC_		=	main.c \
 				path_bin.c \
 				pipex.c \
 				utils.c \
+				free_exit.c \
 
 _SRC_B	=		start_pipex.c \
 				path_bin.c \
 				pipex.c \
 				utils.c \
+				free_exit.c \
 				main_bonus.c \
 				multi_pipex_bonus.c \
 				here_doc_bonus.c \

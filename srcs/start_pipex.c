@@ -6,11 +6,12 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 18:45:38 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/17 12:40:31 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/17 18:33:15 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+#include "libft.h"
 
 void	dup_std(int fd1, int fd2)
 {
@@ -47,7 +48,7 @@ t_cmd	*get_lst_cmd(int ac, char **av)
 	int		i;
 
 	prev = NULL;
-	if (ft_strcmp(av[1], "here_doc") == 0)
+	if (ft_strncmp(av[1], "here_doc", 8) == 0)
 		i = 3;
 	else
 		i = 2;

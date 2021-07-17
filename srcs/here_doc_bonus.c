@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 15:47:26 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/17 13:20:32 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/17 18:14:25 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	get_here_doc(const char *lim, int fd_hd)
 	char	*line;
 
 	line = NULL;
-	while (ft_strcmp(line, lim))
+	while (ft_strncmp(line, lim, ft_strlen(lim)))
 	{
 		if (line)
 			line[ft_strlen(line) - 1] = '\n';

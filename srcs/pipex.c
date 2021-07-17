@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 14:02:39 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/17 13:33:14 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/17 18:20:38 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	**get_args(t_cmd *cmd, char **envp)
 	char	**args;
 
 	if (str_is_ws(cmd->data))
-		exit_wrong_cmd((char *)cmd->data);
+		exit_wrong_cmd(cmd);
 	path_bin = get_path_bin(cmd, envp);
 	args = ft_split(cmd->data, ' ');
 	ft_free((void **)&args[0]);
@@ -108,9 +108,9 @@ void	pipex(t_files files, t_cmd *lst_cmd, char **envp)
 	while (current != NULL)
 	{
 		if (current->prev == NULL)
-			fd_next = pipex_first(files, lst_cmd, current, envp);
+			fd_next = pipex_first(files, current, envp);
 		else if (current->next == NULL)
-			pipex_last(fd_next, files, lst_cmd, current, envp);
+			pipex_last(fd_next, files, current, envp);
 		current = current->next;
 	}
 }

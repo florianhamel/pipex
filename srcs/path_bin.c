@@ -6,20 +6,12 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/17 12:16:32 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/17 13:43:06 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/17 18:38:00 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include "libft.h"
-
-void	exit_wrong_cmd(char *name_bin)
-{
-	ft_putstr_fd(name_bin, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putstr_fd("Command not found\n", STDERR_FILENO);
-	exit(127);
-}
 
 void	check_cmd_found(t_cmd *cmd, char **envp)
 {
@@ -40,12 +32,12 @@ void	check_cmd_found(t_cmd *cmd, char **envp)
 	if (envp[i] && ft_strncmp(envp[i], "PATH", 4) == 0)
 	{
 		arr_paths = ft_split(&envp[i][5], ':');
-		path_bin = path_maker(arr_paths, name_bin);
+		path_bin = path_maker(arr_paths, arr_cmd[0]);
 		ft_free_arr(arr_paths);
 		ft_free((void **)&name_bin);
 	}
 	if (!path_bin)
-		exit(127);
+		free_exit_wrong_cmd(cmd);
 	ft_free((void **)&path_bin);
 }
 
@@ -118,6 +110,6 @@ char	*get_path_bin(t_cmd *cmd, char **envp)
 		ft_free((void **)&name_bin);
 	}
 	if (!path_bin)
-		exit_wrong_cmd(name_bin);
+		exit_wrong_cmd(cmd);
 	return (path_bin);
 }
