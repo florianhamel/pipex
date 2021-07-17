@@ -6,14 +6,14 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 18:45:38 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/17 18:33:15 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/17 21:19:21 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include "libft.h"
 
-void	dup_std(int fd1, int fd2)
+void	dup_stdio(int fd1, int fd2)
 {
 	if (dup2(fd1, 0) == FAILURE)
 		ft_exit(NULL);

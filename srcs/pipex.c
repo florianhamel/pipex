@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 14:02:39 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/17 21:08:00 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/17 21:17:04 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	pipex_first(t_files files, t_cmd *cmd, char **envp)
 	{
 		infile = check_and_open(files.infile, INFILE, cmd);
 		args = get_args(cmd, envp);
-		dup_std(infile, fd[1]);
+		dup_stdio(infile, fd[1]);
 		close(infile);
 		pipe_closing(fd);
 		if (execve(args[0], (char *const *)args, envp) == FAILURE)
@@ -89,8 +89,7 @@ void	pipex_last(int fd_next, t_files files, t_cmd *cmd, char **envp)
 	{
 		outfile = check_and_open(files.outfile, OUTFILE, cmd);
 		args = get_args(cmd, envp);
-		dup2(fd_next, 0);
-		dup2(outfile, 1);
+		dup_stdio(fd_next, outfile);
 		close(fd_next);
 		close(outfile);
 		if (execve(args[0], (char *const *)args, envp) == FAILURE)

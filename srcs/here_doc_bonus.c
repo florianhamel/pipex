@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 15:47:26 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/17 18:14:25 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/17 21:17:31 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	here_doc_last(int fd_next, t_files files, t_cmd *cmd, char **envp)
 		ft_exit(NULL);
 	if (pid == CHILD)
 	{
-		outfile = check_and_open(files.outfile, OUTFILE_APPEND);
+		outfile = check_and_open(files.outfile, OUTFILE_APPEND, cmd);
 		args = get_args(cmd, envp);
 		dup2(fd_next, 0);
 		dup2(outfile, 1);
@@ -76,7 +76,7 @@ int	here_doc_first(const char *lim, t_cmd *cmd, char **envp)
 	{
 		get_here_doc(lim, fd_hd[1]);
 		args = get_args(cmd, envp);
-		dup_std(fd_hd[0], fd[1]);
+		dup_stdio(fd_hd[0], fd[1]);
 		pipe_closing(fd_hd);
 		if (execve(args[0], args, envp))
 			ft_exit(NULL);

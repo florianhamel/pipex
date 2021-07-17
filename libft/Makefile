@@ -6,7 +6,7 @@
 #    By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/21 19:44:59 by fhamel            #+#    #+#              #
-#    Updated: 2021/07/17 13:35:22 by fhamel           ###   ########.fr        #
+#    Updated: 2021/07/17 21:22:49 by fhamel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,7 @@ $(D_OBJS)%.o : $(D_SRCS)%.c
 	@$(CC) $(FLAGS) -c $< -o $@ -Iincludes
 
 $(LIBFT) : $(OBJS)
-	$(AR) $(LIBFT) $(OBJS)
+	@$(AR) $(LIBFT) $(OBJS)
 
 clean :
 	rm -rf $(D_OBJS)

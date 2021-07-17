@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 13:39:48 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/17 12:44:55 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/17 21:18:18 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ int	pipex_mid(int fd_next, t_cmd *cmd, char **envp)
 	else if (pid == CHILD)
 	{
 		args = get_args(cmd, envp);
-		dup2(fd_next, 0);
-		dup2(fd[1], 1);
+		dup_stdio(fd_next, fd[1]);
 		close(fd_next);
 		pipe_closing(fd);
 		if (execve(args[0], args, envp) == FAILURE)

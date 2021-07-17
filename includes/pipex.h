@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 22:46:38 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/17 21:06:56 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/17 21:16:00 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_cmd
 /*
 ** start_pipex.c
 */
-void		dup_std(int fd1, int fd2);
+void		dup_stdio(int fd1, int fd2);
 void		pipe_closing(int fd[2]);
 t_cmd		*new_cmd(const char *str, t_cmd *prev);
 t_cmd		*get_lst_cmd(int ac, char **av);
