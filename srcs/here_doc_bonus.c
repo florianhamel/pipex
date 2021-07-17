@@ -6,12 +6,12 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 15:47:26 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/14 19:06:39 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/17 13:20:32 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
-#include "gnl.h"
+#include "gnl_bonus.h"
 #include "libft.h"
 
 void	get_here_doc(const char *lim, int fd_hd)
@@ -46,7 +46,7 @@ void	here_doc_last(int fd_next, t_files files, t_cmd *cmd, char **envp)
 	if (pid == CHILD)
 	{
 		outfile = check_and_open(files.outfile, OUTFILE_APPEND);
-		args = get_args(cmd);
+		args = get_args(cmd, envp);
 		dup2(fd_next, 0);
 		dup2(outfile, 1);
 		close(fd_next);
@@ -56,6 +56,7 @@ void	here_doc_last(int fd_next, t_files files, t_cmd *cmd, char **envp)
 	}
 	close(fd_next);
 	waitpid(pid, NULL, 0);
+	check_cmd_found(cmd, envp);
 }
 
 int	here_doc_first(const char *lim, t_cmd *cmd, char **envp)
@@ -74,7 +75,7 @@ int	here_doc_first(const char *lim, t_cmd *cmd, char **envp)
 	else if (pid == CHILD)
 	{
 		get_here_doc(lim, fd_hd[1]);
-		args = get_args(cmd);
+		args = get_args(cmd, envp);
 		dup_std(fd_hd[0], fd[1]);
 		pipe_closing(fd_hd);
 		if (execve(args[0], args, envp))
@@ -110,9 +111,16 @@ void	start_here_doc(const char *lim, int ac, char **av, char **envp)
 {
 	t_cmd	*lst_cmd;
 	t_files	files;
+	t_cmd	*next;
 
 	files.infile = 0;
 	files.outfile = av[ac - 1];
 	lst_cmd = get_lst_cmd(ac, av);
 	here_doc_pipex(lim, files, lst_cmd, envp);
+	while (lst_cmd)
+	{
+		next = lst_cmd->next;
+		ft_free((void **)&lst_cmd);
+		lst_cmd = next;
+	}
 }

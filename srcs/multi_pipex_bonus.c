@@ -6,10 +6,11 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 13:39:48 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/14 18:37:38 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/17 12:44:55 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "pipex.h"
 #include "pipex_bonus.h"
 #include "libft.h"
 
@@ -27,7 +28,7 @@ int	pipex_mid(int fd_next, t_cmd *cmd, char **envp)
 		ft_exit(NULL);
 	else if (pid == CHILD)
 	{
-		args = get_args(cmd);
+		args = get_args(cmd, envp);
 		dup2(fd_next, 0);
 		dup2(fd[1], 1);
 		close(fd_next);
@@ -64,9 +65,16 @@ void	start_multi_pipex(int ac, char **av, char **envp)
 {
 	t_cmd	*lst_cmd;
 	t_files	files;
+	t_cmd	*next;
 
 	files.infile = av[1];
 	files.outfile = av[ac - 1];
 	lst_cmd = get_lst_cmd(ac, av);
 	multi_pipex(files, lst_cmd, envp);
+	while (lst_cmd)
+	{
+		next = lst_cmd->next;
+		ft_free((void **)&lst_cmd);
+		lst_cmd = next;
+	}
 }

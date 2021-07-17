@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_free_arr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/06 22:46:15 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/17 13:05:44 by fhamel           ###   ########.fr       */
+/*   Created: 2021/07/17 13:29:45 by fhamel            #+#    #+#             */
+/*   Updated: 2021/07/17 13:32:27 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int	main(int ac, char **av, char **envp)
+void	ft_free_arr(char **arr)
 {
-	if (ac == 5)
-		start_pipex(ac, av, envp);
-	else
-		write(1, "Wrong number of arguments.\n", 27);
-	return (0);
+	int	i;
+
+	i = 0;
+	if (!arr)
+		return ;
+	while (arr[i])
+	{
+		free(arr[i]);
+		arr[i] = NULL;
+		i++;
+	}
+	free(arr);
+	arr = NULL;
 }

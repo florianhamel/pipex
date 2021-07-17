@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 22:46:38 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/17 01:20:08 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/17 13:34:28 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@
 # include <sys/wait.h>
 # include <errno.h>
 # include <string.h>
-
-#include <stdio.h>
+# include <stdio.h>
 
 # define ACCESS 0
 # define FAILURE -1
@@ -54,14 +53,17 @@ t_cmd		*get_lst_cmd(int ac, char **av);
 void		start_pipex(int ac, char **av, char **envp);
 
 /*
-** pipex.c
+** path_bin.c
 */
-void		free_split(char **arr);
+void		exit_wrong_cmd(char *name_bin);
+void		check_cmd_found(t_cmd *cmd, char **envp);
 char		*concat_path_bin(const char *path, const char *name_bin);
 char		*path_maker(char **arr_paths, const char *name_bin);
-void		exit_wrong_cmd(char *name_bin);
 char		*get_path_bin(t_cmd *cmd, char **envp);
 
+/*
+** pipex.c
+*/
 int			check_and_open(const char *file, int mode);
 char		**get_args(t_cmd *cmd, char **envp);
 int			pipex_first(t_files files, t_cmd *cmd, char **envp);
@@ -75,5 +77,6 @@ int			ft_strcmp(const char *s1, const char *s2);
 void		ft_free(void **ptr);
 void		ft_exit(const char *str_error);
 void		*alloc(size_t size, size_t len);
+int			str_is_ws(const char *str);
 
 #endif

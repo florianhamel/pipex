@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 18:21:17 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/14 19:06:15 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/17 13:42:23 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,18 @@ void	*alloc(size_t size, size_t len)
 	if (!alloc)
 		ft_exit(NULL);
 	return (alloc);
+}
+
+int	str_is_ws(const char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_is_ws(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
 }

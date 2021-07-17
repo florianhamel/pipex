@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 18:45:38 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/16 12:28:33 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/17 12:40:31 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	start_pipex(int ac, char **av, char **envp)
 	while (lst_cmd)
 	{
 		next = lst_cmd->next;
-		free(lst_cmd);
+		ft_free((void **)&lst_cmd);
 		lst_cmd = next;
 	}
 }
