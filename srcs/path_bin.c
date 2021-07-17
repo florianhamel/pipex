@@ -42,10 +42,11 @@ void	check_cmd_found(t_cmd *cmd, char **envp)
 		arr_paths = ft_split(&envp[i][5], ':');
 		path_bin = path_maker(arr_paths, name_bin);
 		ft_free_arr(arr_paths);
+		ft_free((void **)&name_bin);
 	}
 	if (!path_bin)
 		exit(127);
-	ft_free((void **)&name_bin);
+	ft_free((void **)&path_bin);
 }
 
 char	*concat_path_bin(const char *path, const char *name_bin)
@@ -114,9 +115,9 @@ char	*get_path_bin(t_cmd *cmd, char **envp)
 		arr_paths = ft_split(&envp[i][5], ':');
 		path_bin = path_maker(arr_paths, name_bin);
 		ft_free_arr(arr_paths);
+		ft_free((void **)&name_bin);
 	}
 	if (!path_bin)
 		exit_wrong_cmd(name_bin);
-	ft_free((void **)&name_bin);
 	return (path_bin);
 }

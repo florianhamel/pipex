@@ -108,9 +108,9 @@ void	pipex(t_files files, t_cmd *lst_cmd, char **envp)
 	while (current != NULL)
 	{
 		if (current->prev == NULL)
-			fd_next = pipex_first(files, current, envp);
+			fd_next = pipex_first(files, lst_cmd, current, envp);
 		else if (current->next == NULL)
-			pipex_last(fd_next, files, current, envp);
+			pipex_last(fd_next, files, lst_cmd, current, envp);
 		current = current->next;
 	}
 }
