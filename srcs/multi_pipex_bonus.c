@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 13:39:48 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/18 14:43:16 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/18 18:14:06 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	start_multi_pipex(int ac, char **av, char **envp)
 
 	files.infile = av[1];
 	files.outfile = av[ac - 1];
+	create_outfile(files.outfile, OUTFILE);
 	lst_cmd = get_lst_cmd(ac, av);
 	multi_pipex(files, lst_cmd, envp);
 	while (lst_cmd)

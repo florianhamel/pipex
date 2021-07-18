@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 18:21:17 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/17 18:38:42 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/18 18:23:07 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,23 @@ int	str_is_ws(const char *str)
 		i++;
 	}
 	return (1);
+}
+
+void	create_outfile(char *file_name, int mode)
+{
+	int	fd;
+
+	fd = -1;
+	if (mode == OUTFILE)
+	{
+		fd = open(file_name, O_CREAT | O_TRUNC, 0666);
+		if (fd != FAILURE)
+			close(fd);
+	}
+	else
+	{
+		fd = open(file_name, O_CREAT | O_APPEND, 0666);
+		if (fd != FAILURE)
+			close(fd);
+	}
 }

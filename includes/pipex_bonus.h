@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 13:34:44 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/18 14:24:27 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/18 18:15:17 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	start_multi_pipex(int ac, char **av, char **envp);
 */
 void	get_here_doc(const char *lim, int fd_hd);
 void	here_doc_last(int fd_next, t_files files, t_cmd *cmd, char **envp);
-int		here_doc_first(const char *lim, t_cmd *cmd, char **envp);
+int		here_doc_first(const char *lim, t_files files, t_cmd *cmd, \
+		char **envp);
 void	here_doc_pipex(const char *lim, t_files files, t_cmd *lst_cmd, \
 		char **envp);
 void	start_here_doc(const char *lim, int ac, char **av, char **envp);

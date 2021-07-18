@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 22:46:38 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/17 21:16:00 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/18 16:35:07 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void		pipex(t_files files, t_cmd *lst_cmd, char **envp);
 */
 void		*alloc(size_t size, size_t len);
 int			str_is_ws(const char *str);
+void		create_outfile(char *file_name, int mode);
 
 /*
 ** free_exit.c

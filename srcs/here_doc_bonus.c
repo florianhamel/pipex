@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 15:47:26 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/18 14:46:33 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/18 18:18:47 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	get_here_doc(const char *lim, int fd_hd)
 		ft_putstr_fd("\n", fd_hd);
 		ft_free((void **)&line);
 		write(0, "> ", 2);
-		if (get_next_line(0, &line) == ERROR)
+		if (get_next_line(0, &line) == FAILURE)
 			ft_exit(NULL);
 	}
 	ft_free((void **)&line);
@@ -58,7 +58,7 @@ void	here_doc_last(int fd_next, t_files files, t_cmd *cmd, char **envp)
 	check_cmd_found(cmd, envp);
 }
 
-int	here_doc_first(const char *lim, t_cmd *cmd, char **envp)
+int	here_doc_first(const char *lim, t_files files, t_cmd *cmd, char **envp)
 {
 	int			fd_hd[2];
 	int			fd[2];
@@ -74,6 +74,7 @@ int	here_doc_first(const char *lim, t_cmd *cmd, char **envp)
 	else if (pid == CHILD)
 	{
 		get_here_doc(lim, fd_hd[1]);
+		create_outfile(files.outfile, OUTFILE_APPEND);
 		args = get_args(cmd, envp);
 		dup_stdio(fd_hd[0], fd[1]);
 		pipe_closing(fd_hd);
@@ -97,7 +98,7 @@ char **envp)
 	while (current != NULL)
 	{
 		if (current->prev == NULL)
-			fd_next = here_doc_first(lim, current, envp);
+			fd_next = here_doc_first(lim, files, current, envp);
 		else if (current->next == NULL)
 			here_doc_last(fd_next, files, current, envp);
 		else
