@@ -6,7 +6,7 @@
 #    By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/25 20:20:38 by florianhame       #+#    #+#              #
-#    Updated: 2021/07/18 02:11:05 by fhamel           ###   ########.fr        #
+#    Updated: 2021/07/18 02:19:33 by fhamel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,13 +75,13 @@ all	: $(D_OBJS) $(LIBFT) $(PIPEX_M)
 bonus : $(D_OBJS) $(LIBFT) $(PIPEX_B)
 
 compiling_start_m :
-	@python -c 'print "\033[0;33mCompiling \033[0;34m$(NAME)\033[0;33m sources... \033[0m"'
+	@python -c 'print "\033[0;33mCompiling \033[0;34m$(NAME)\033[0;33m sources..."'
 
 compiling_end_m :
 	@python -c 'print "\033[0;32mCompiling successful \xE2\x9C\x94 \033[0m"'
 
 compiling_start_b :
-	@python -c 'print "\033[0;33mCompiling \033[0;34m$(NAME)\033[0;33m bonus sources... \033[0m"'
+	@python -c 'print "\033[0;33mCompiling \033[0;34m$(NAME)\033[0;33m bonus sources..."'
 
 compiling_end_b :
 	@python -c 'print "\033[0;32mCompiling bonuses successful \xE2\x9C\x94 \033[0m"'
@@ -93,7 +93,7 @@ $(LIBFT) :
 	@make -C $(D_LIBFT)
 
 $(D_OBJS)%.o : $(D_SRCS)%.c
-	@$(CC) $(FLAGS) -c $< -o $@ -Iincludes -Ilibft/includes
+	$(CC) $(FLAGS) -c $< -o $@ -Iincludes -Ilibft/includes
 
 $(PIPEX_M) : compiling_start_m $(OBJS) compiling_end_m
 	@python -c 'print "\033[0;33mLinking objects for \033[0;34m$(NAME)\033[0;37m... \033[0m"'
