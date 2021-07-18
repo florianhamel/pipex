@@ -6,7 +6,7 @@
 #    By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/25 20:20:38 by florianhame       #+#    #+#              #
-#    Updated: 2021/07/18 04:36:23 by fhamel           ###   ########.fr        #
+#    Updated: 2021/07/18 04:44:13 by fhamel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -115,4 +115,5 @@ fclean : clean
 	@rm -rf $(NAME)
 	@python -c 'print u"\033[0;34m$(LIBFT) \033[0;33mdeleted \u2713 \033[0m"'
 	@python -c 'print u"\033[0;34m$(NAME) \033[0;33mdeleted \u2713 \033[0m"'
+
 re : fclean all
