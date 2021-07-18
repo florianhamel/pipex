@@ -6,7 +6,7 @@
 #    By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/21 19:44:59 by fhamel            #+#    #+#              #
-#    Updated: 2021/07/18 04:37:49 by fhamel           ###   ########.fr        #
+#    Updated: 2021/07/18 04:42:27 by fhamel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,8 +27,7 @@ _SRC_		=	ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c ft_memchr.
 				ft_atoi.c ft_isalpha.c ft_is_ws.c ft_isdigit.c ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c \
 				ft_isprint.c ft_toupper.c ft_tolower.c ft_calloc.c ft_strdup.c ft_substr.c ft_strjoin.c \
 				ft_strtrim.c ft_split.c ft_free_arr.c ft_itoa.c ft_strmapi.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c \
-				ft_putnbr_fd.c \
-				ft_malloc.c
+				ft_putnbr_fd.c ft_malloc.c\
 
 SRCS		=	$(addprefix $(D_SRCS), $(_SRC_))
 
