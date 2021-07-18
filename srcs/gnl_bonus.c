@@ -5,117 +5,94 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/08 12:57:20 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/17 12:24:53 by fhamel           ###   ########.fr       */
+/*   Created: 2021/07/18 13:34:33 by fhamel            #+#    #+#             */
+/*   Updated: 2021/07/18 14:43:57 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gnl_bonus.h"
 
-void	nl_surplus(char **line, char **surplus, int pos)
+int	get_len_line(char *line)
 {
-	char	*new_surp;
+	int	len;
 
-	ft_fill(*line, *surplus, '\n');
-	if (!(*surplus)[pos + 1])
-	{
-		free(*surplus);
-		*surplus = NULL;
-		return ;
-	}
-	new_surp = new_surplus(&(*surplus)[pos + 1]);
-	free(*surplus);
-	*surplus = new_surp;
-	if (!(*surplus))
-	{
-		free(*line);
-		*line = NULL;
-	}
-}
-
-int	ft_surplus(char **line, char **surplus)
-{
-	int	i;
-
-	i = 0;
-	if (!(*surplus))
-		return (LINE_NOT_FULL);
-	while ((*surplus)[i] && (*surplus)[i] != '\n')
-		i++;
-	if ((*surplus)[i] == '\n')
-	{
-		*line = malloc(sizeof(char) * (i + 2));
-		nl_surplus(line, surplus, i);
-		return (RETURN_LINE);
-	}
-	*line = malloc(sizeof(char) * (i + 1));
 	if (!line)
-		return (RETURN_LINE);
-	ft_fill(*line, *surplus, '\0');
-	free(*surplus);
-	*surplus = NULL;
-	return (LINE_NOT_FULL);
+		return (0);
+	len = 0;
+	while (line[len])
+		len++;
+	return (len);
 }
 
-void	nl_buf(char **line, char *buf, char **surplus, int pos)
+int	empty_line(char **line)
 {
-	int	i;
+	*line = malloc(sizeof(char));
+	if (!*line)
+		return (ERROR);
+	**line = '\0';
+	return (0);
+}
 
-	i = pos + 1;
-	if (!buf[i])
-		return ;
-	while (buf[i])
-		i++;
-	*surplus = malloc(sizeof(char) * (i + 1));
-	if (!(*surplus))
+int	fill_line_nl(char **line)
+{
+	if (!*line)
 	{
-		free(*line);
-		*line = NULL;
-		return ;
+		if (empty_line(line) == ERROR)
+			return (ERROR);
 	}
-	ft_fill(*surplus, &buf[pos + 1], '\0');
+	return (NL);
 }
 
-int	ft_buf(char **line, char *buf, char **surplus)
+int	fill_line(char **line, char *buf)
 {
-	int	i;
+	char	*new_line;
+	int		len_line;
+	int		i;
 
 	i = 0;
-	while (buf[i] && buf[i] != '\n')
-		i++;
-	if (ft_concat(line, buf, buf[i]) == RETURN_LINE)
-		return (RETURN_LINE);
-	if (buf[i] == '\n')
+	if (*buf == '\n')
+		return (fill_line_nl(line));
+	len_line = get_len_line(*line);
+	new_line = malloc(sizeof(char) * (len_line + 2));
+	if (!new_line)
+		return (ERROR);
+	while (i < len_line)
 	{
-		nl_buf(line, buf, surplus, i);
-		return (RETURN_LINE);
+		new_line[i] = (*line)[i];
+		i++;
 	}
-	return (LINE_NOT_FULL);
+	new_line[i] = *buf;
+	new_line[i + 1] = '\0';
+	free(*line);
+	*line = new_line;
+	return (NO_NL);
 }
 
-char	*get_next_line(int fd)
+int	get_next_line(int fd, char **line)
 {
-	static char	*surplus = NULL;
-	char		*line;
-	char		buf[BUFFER_SIZE + 1];
+	char		buf[2];
+	ssize_t		b_read;
 	int			ret;
 
-	line = NULL;
-	if (ft_surplus(&line, &surplus) == RETURN_LINE)
-		return (line);
-	ret = read(fd, buf, BUFFER_SIZE);
-	if (ret == ERROR)
-		return (NULL);
-	buf[ret] = '\0';
-	while (ret)
+	*line = NULL;
+	b_read = read(fd, buf, 1);
+	if (b_read == ERROR)
+		return (ERROR);
+	buf[1] = '\0';
+	while (b_read)
 	{
-		ret = ft_buf(&line, buf, &surplus);
-		if (ret == RETURN_LINE)
-			return (line);
-		ret = read(fd, buf, BUFFER_SIZE);
-		if (ret == ERROR)
-			return (NULL);
-		buf[ret] = '\0';
+		ret = fill_line(line, buf);
+		if (ret == ERROR || ret == NL)
+			return (ret);
+		b_read = read(fd, buf, 1);
+		if (b_read == ERROR)
+			return (ERROR);
+		buf[1] = '\0';
 	}
-	return (line);
+	if (!*line)
+	{
+		if (empty_line(line) == ERROR)
+			return (ERROR);
+	}
+	return (EOF_READ);
 }

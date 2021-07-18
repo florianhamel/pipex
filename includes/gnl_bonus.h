@@ -5,41 +5,26 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/08 13:30:48 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/17 12:25:21 by fhamel           ###   ########.fr       */
+/*   Created: 2021/07/18 13:38:25 by fhamel            #+#    #+#             */
+/*   Updated: 2021/07/18 14:44:51 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GNL_BONUS_H
 # define GNL_BONUS_H
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 32
-# endif
-
-# define ERROR -1
-# define RETURN_LINE 0
-# define LINE_NOT_FULL 1
-# define CONCAT_DONE 1
-
 # include <unistd.h>
 # include <stdlib.h>
 
-/*
-** gnl.c
-*/
+# define ERROR -1
+# define EOF_READ 0
+# define NO_NL 0
+# define NL 1
 
-void	nl_surplus(char **line, char **surplus, int pos);
-int		ft_surplus(char **line, char **surplus);
-void	nl_buf(char **line, char *buf, char **surplus, int pos);
-int		ft_buf(char **line, char *buf, char **surplus);
-char	*get_next_line(int fd);
-
-/*
-** gnl_utils.c
-*/
-char	*new_surplus(char *surplus);
-void	ft_fill(char *dst, const char *src, char lim);
-int		ft_concat(char **line, char *buf, char lim);
+int	get_len_line(char *line);
+int	empty_line(char **line);
+int	fill_line_nl(char **line);
+int	fill_line(char **line, char *buf);
+int	get_next_line(int fd, char **line);
 
 #endif

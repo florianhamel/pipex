@@ -6,11 +6,10 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 13:39:48 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/17 21:18:18 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/18 14:43:16 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
 #include "pipex_bonus.h"
 #include "libft.h"
 

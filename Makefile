@@ -6,7 +6,7 @@
 #    By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/25 20:20:38 by florianhame       #+#    #+#              #
-#    Updated: 2021/07/18 04:44:13 by fhamel           ###   ########.fr        #
+#    Updated: 2021/07/18 14:45:49 by fhamel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,6 @@ _SRC_B	=		start_pipex.c \
 				multi_pipex_bonus.c \
 				here_doc_bonus.c \
 				gnl_bonus.c \
-				gnl_utils_bonus.c \
 
 SRCS		=	$(addprefix $(D_SRCS), $(_SRC_))
 
