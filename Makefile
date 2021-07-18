@@ -6,7 +6,7 @@
 #    By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/25 20:20:38 by florianhame       #+#    #+#              #
-#    Updated: 2021/07/18 02:26:27 by fhamel           ###   ########.fr        #
+#    Updated: 2021/07/18 02:37:24 by fhamel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -101,7 +101,7 @@ $(PIPEX_M) : compiling_start_m $(OBJS) compiling_end_m
 	@python -c 'print "\033[0;32mLinking successful \xE2\x9C\x94 \033[0m"'
 
 $(PIPEX_B) : compiling_start_b $(OBJS_B) compiling_end_b
-	@python -c 'print "\033[0;33mLinking objects for \033[0;35m$(NAME)\033[0;33m... \033[0m"'
+	@python -c 'print "\033[0;33mLinking objects for \033[0;34m$(NAME)\033[0;33m... \033[0m"'
 	@$(CC) $(OBJS_B) -L$(D_LIBFT) -lft -o $(NAME)
 	@python -c 'print "\033[0;32mLinking successful \xE2\x9C\x94 \033[0m"'
 
