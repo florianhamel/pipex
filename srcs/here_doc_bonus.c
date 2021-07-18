@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 15:47:26 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/17 21:17:31 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/18 13:09:02 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,31 @@
 
 void	get_here_doc(const char *lim, int fd_hd)
 {
+	char	*lim_nl;
 	char	*line;
+	int		i;
 
-	line = NULL;
-	while (ft_strncmp(line, lim, ft_strlen(lim)))
+	lim_nl = alloc(sizeof(char), ft_strlen(lim) + 2);
+	if (!lim_nl)
+		ft_exit(NULL);
+	i = 0;
+	while (lim[i])
 	{
-		if (line)
-			line[ft_strlen(line) - 1] = '\n';
+		lim_nl[i] = lim[i];
+		i++;
+	}
+	lim_nl[i] = '\n';
+	lim_nl[++i] = '\0';
+	line = NULL;
+	while (ft_strncmp(line, lim_nl, ft_strlen(lim_nl)))
+	{
 		ft_putstr_fd(line, fd_hd);
 		ft_free((void **)&line);
 		write(0, "> ", 2);
 		line = get_next_line(0);
-		line[ft_strlen(line) - 1] = '\0';
 	}
 	ft_free((void **)&line);
+	ft_free((void **)&lim_nl);
 }
 
 void	here_doc_last(int fd_next, t_files files, t_cmd *cmd, char **envp)
