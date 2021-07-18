@@ -6,7 +6,7 @@
 #    By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/21 19:44:59 by fhamel            #+#    #+#              #
-#    Updated: 2021/07/18 02:05:20 by fhamel           ###   ########.fr        #
+#    Updated: 2021/07/18 02:23:27 by fhamel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,7 @@ $(D_OBJS)%.o : $(D_SRCS)%.c
 	@$(CC) $(FLAGS) -c $< -o $@ -Iincludes
 
 $(NAME) : compiling_start $(OBJS) compiling_end
-	@python -c 'print "\033[0;33mLinking objects for \033[0;34m$(NAME)\033[0;37m... \033[0m"'
+	@python -c 'print "\033[0;33mLinking objects for \033[0;34m$(NAME)\033[0;33m... \033[0m"'
 	@$(AR) $(NAME) $(OBJS)
 	@python -c 'print "\033[0;32mLinking successful \xE2\x9C\x94 \033[0m"'
 
