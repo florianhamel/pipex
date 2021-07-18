@@ -6,7 +6,7 @@
 #    By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/21 19:44:59 by fhamel            #+#    #+#              #
-#    Updated: 2021/07/17 21:22:49 by fhamel           ###   ########.fr        #
+#    Updated: 2021/07/18 02:05:20 by fhamel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 #####                              FILES VARS                              #####
 ################################################################################
 
-LIBFT		=	libft.a
+NAME		=	libft.a
 
 D_INCLUDES	=	includes/
 
@@ -45,10 +45,22 @@ FLAGS		=	-Wall -Wextra -Werror
 AR			=	ar -rcs
 
 ################################################################################
+#####                             PRINT RULES                              #####
+################################################################################
+
+################################################################################
 #####                            MAKEFILE RULES                            #####
 ################################################################################
 
-all : $(D_OBJS) $(LIBFT)
+.PHONY : all bonus clean fclean re
+
+all : $(D_OBJS) $(NAME)
+
+compiling_start:
+	@python -c 'print "\033[0;33mCompiling \033[0;34m$(NAME)\033[0;33m sources... \033[0m"'
+
+compiling_end :
+	@python -c 'print "\033[0;32mCompiling successful \xE2\x9C\x94 \033[0m"'
 
 $(D_OBJS) :
 	@mkdir -p $@
@@ -56,13 +68,17 @@ $(D_OBJS) :
 $(D_OBJS)%.o : $(D_SRCS)%.c
 	@$(CC) $(FLAGS) -c $< -o $@ -Iincludes
 
-$(LIBFT) : $(OBJS)
-	@$(AR) $(LIBFT) $(OBJS)
+$(NAME) : compiling_start $(OBJS) compiling_end
+	@python -c 'print "\033[0;33mLinking objects for \033[0;34m$(NAME)\033[0;37m... \033[0m"'
+	@$(AR) $(NAME) $(OBJS)
+	@python -c 'print "\033[0;32mLinking successful \xE2\x9C\x94 \033[0m"'
 
 clean :
-	rm -rf $(D_OBJS)
+	@rm -rf $(D_OBJS)
+	@python -c 'print "\033[0;33mObjects deleted \xE2\x9C\x94 \033[0m"'
 
 fclean : clean
-	rm -rf $(LIBFT)
+	@rm -rf $(NAME)
+	@python -c 'print "\033[0;34m$(NAME) \033[0;33mdeleted \xE2\x9C\x94 \033[0m"'
 
 re : fclean all

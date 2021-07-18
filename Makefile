@@ -6,7 +6,7 @@
 #    By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/25 20:20:38 by florianhame       #+#    #+#              #
-#    Updated: 2021/07/17 20:45:58 by fhamel           ###   ########.fr        #
+#    Updated: 2021/07/18 02:11:05 by fhamel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 #####                              FILES VARS                              #####
 ################################################################################
 
-PIPEX		=	pipex
+NAME		=	pipex
 
 PIPEX_M		=	pipex_mandatory
 
@@ -74,6 +74,18 @@ all	: $(D_OBJS) $(LIBFT) $(PIPEX_M)
 
 bonus : $(D_OBJS) $(LIBFT) $(PIPEX_B)
 
+compiling_start_m :
+	@python -c 'print "\033[0;33mCompiling \033[0;34m$(NAME)\033[0;33m sources... \033[0m"'
+
+compiling_end_m :
+	@python -c 'print "\033[0;32mCompiling successful \xE2\x9C\x94 \033[0m"'
+
+compiling_start_b :
+	@python -c 'print "\033[0;33mCompiling \033[0;34m$(NAME)\033[0;33m bonus sources... \033[0m"'
+
+compiling_end_b :
+	@python -c 'print "\033[0;32mCompiling bonuses successful \xE2\x9C\x94 \033[0m"'
+
 $(D_OBJS) :
 	@mkdir -p $@
 
@@ -81,20 +93,26 @@ $(LIBFT) :
 	@make -C $(D_LIBFT)
 
 $(D_OBJS)%.o : $(D_SRCS)%.c
-	$(CC) $(FLAGS) -c $< -o $@ -Iincludes -Ilibft/includes
+	@$(CC) $(FLAGS) -c $< -o $@ -Iincludes -Ilibft/includes
 
-$(PIPEX_M) : $(OBJS)
-	$(CC) $(OBJS) -L$(D_LIBFT) -lft -o $(PIPEX)
+$(PIPEX_M) : compiling_start_m $(OBJS) compiling_end_m
+	@python -c 'print "\033[0;33mLinking objects for \033[0;34m$(NAME)\033[0;37m... \033[0m"'
+	@$(CC) $(OBJS) -L$(D_LIBFT) -lft -o $(NAME)
+	@python -c 'print "\033[0;32mLinking successful \xE2\x9C\x94 \033[0m"'
 
-$(PIPEX_B) : $(OBJS_B)
-	$(CC) $(OBJS_B) -L$(D_LIBFT) -lft -o $(PIPEX)
+$(PIPEX_B) : compiling_start_b $(OBJS_B) compiling_end_b
+	@python -c 'print "\033[0;33mLinking objects for \033[0;34m$(NAME)\033[0;37m... \033[0m"'
+	@$(CC) $(OBJS_B) -L$(D_LIBFT) -lft -o $(NAME)
+	@python -c 'print "\033[0;32mLinking successful \xE2\x9C\x94 \033[0m"'
 
 clean :
-	rm -rf $(D_OBJS)
-	make clean -C $(D_LIBFT)
+	@rm -rf $(D_OBJS)
+	@make clean -C $(D_LIBFT)
+	@python -c 'print "\033[0;33mObjects deleted \xE2\x9C\x94 \033[0m"'
 
 fclean : clean
-	rm -rf $(PIPEX)
-	rm -rf $(D_LIBFT)$(LIBFT)
-
+	@rm -rf $(D_LIBFT)$(LIBFT)
+	@rm -rf $(NAME)
+	@python -c 'print "\033[0;34m$(LIBFT) \033[0;33mdeleted \xE2\x9C\x94 \033[0m"'
+	@python -c 'print "\033[0;34m$(NAME) \033[0;33mdeleted \xE2\x9C\x94 \033[0m"'
 re : fclean all
