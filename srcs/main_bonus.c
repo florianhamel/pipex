@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 13:37:01 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/22 19:38:36 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/23 00:55:32 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,16 @@ OR ./pipex here_doc LIMITER \"cmd1\" ... \"cmdn\" outfile\n";
 		start_here_doc(lim, ac, av, envp);
 	}
 	else if (ft_strncmp(av[1], "here_doc", 8) == 0)
+	{
 		write(STDERR_FILENO, usage, ft_strlen(usage));
+		return (2);
+	}
 	else if (ac > 4)
 		start_multi_pipex(ac, av, envp);
 	else
+	{
 		write(STDERR_FILENO, usage, ft_strlen(usage));
+		return (1);
+	}
 	return (0);
 }

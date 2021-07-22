@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 22:46:15 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/22 19:25:30 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/23 00:54:33 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ int	main(int ac, char **av, char **envp)
 	if (ac == 5)
 		start_pipex(ac, av, envp);
 	else
+	{
 		write(STDERR_FILENO, usage, ft_strlen(usage));
+		return (1);
+	}
 	return (0);
 }
