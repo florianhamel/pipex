@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/17 12:16:32 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/22 19:14:23 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/23 00:21:30 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,9 @@ char	*get_bin(t_cmd *cmd)
 		ft_free_arr(arr_cmd);
 		return (path_bin);
 	}
-	if (access(arr_cmd[0], F_OK) == ACCESS)
-		path_bin = ft_strdup(arr_cmd[0]);
+	if (access(arr_cmd[0], F_OK) == FAILURE)
+		ft_exit(arr_cmd[0]);
+	path_bin = ft_strdup(arr_cmd[0]);
 	ft_free_arr(arr_cmd);
 	return (path_bin);
 }
