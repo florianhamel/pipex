@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 14:02:39 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/23 00:19:07 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/23 00:34:47 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	pipex_last(int fd_next, t_files files, t_cmd *cmd, char **envp)
 	close(fd_next);
 	waitpid(pid, &status, 0);
 	if (WEXITSTATUS(status) != 0)
-		exit(WEXITSTATUS(status));
+		free_exit(cmd, WEXITSTATUS(status));
 }
 
 void	pipex(t_files files, t_cmd *lst_cmd, char **envp)

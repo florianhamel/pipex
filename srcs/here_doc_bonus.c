@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 15:47:26 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/22 17:06:25 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/23 00:34:23 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	here_doc_last(int fd_next, t_files files, t_cmd *cmd, char **envp)
 	close(fd_next);
 	waitpid(pid, &status, 0);
 	if (WEXITSTATUS(status) != 0)
-		exit(WEXITSTATUS(status));
+		free_exit(cmd, WEXITSTATUS(status));
 }
 
 int	here_doc_first(const char *lim, t_files files, t_cmd *cmd, char **envp)

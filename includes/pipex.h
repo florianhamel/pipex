@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 22:46:38 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/22 18:00:25 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/23 00:35:10 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,6 @@ void		ft_free(void **ptr);
 void		ft_free_lst(t_cmd *cmd);
 void		ft_exit(const char *str_error);
 void		exit_wrong_cmd(t_cmd *cmd);
-void		free_exit_wrong_cmd(t_cmd *cmd);
+void		free_exit(t_cmd *cmd, int error);
 
 #endif
