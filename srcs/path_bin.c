@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/17 12:16:32 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/22 18:00:06 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/22 19:14:23 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,17 +88,23 @@ char	*path_maker(char **arr_paths, const char *name_bin)
 
 char	*get_bin(t_cmd *cmd)
 {
+	char	**arr_cmd;
 	char	*path_bin;
 	int		i;
 
+	arr_cmd = ft_split(cmd->data, ' ');
 	path_bin = NULL;
 	i = 0;
-	while (cmd->data[i] && cmd->data[i] != '/')
+	while (arr_cmd[0][i] && arr_cmd[0][i] != '/')
 		i++;
-	if (!cmd->data[i])
+	if (!arr_cmd[0][i])
+	{
+		ft_free_arr(arr_cmd);
 		return (path_bin);
-	if (access(cmd->data, F_OK) == ACCESS)
-		path_bin = ft_strdup(cmd->data);
+	}
+	if (access(arr_cmd[0], F_OK) == ACCESS)
+		path_bin = ft_strdup(arr_cmd[0]);
+	ft_free_arr(arr_cmd);
 	return (path_bin);
 }
 
