@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 13:39:48 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/18 18:14:06 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/22 17:02:47 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int	pipex_mid(int fd_next, t_cmd *cmd, char **envp)
 {
 	int			fd[2];
-	char *const	*args;
+	char		**args;
 	pid_t		pid;
 
 	if (pipe(fd) == FAILURE)
@@ -31,8 +31,7 @@ int	pipex_mid(int fd_next, t_cmd *cmd, char **envp)
 		dup_stdio(fd_next, fd[1]);
 		close(fd_next);
 		pipe_closing(fd);
-		if (execve(args[0], args, envp) == FAILURE)
-			ft_exit(NULL);
+		ft_execve(args, envp);
 	}
 	close(fd_next);
 	close(fd[1]);
@@ -67,7 +66,6 @@ void	start_multi_pipex(int ac, char **av, char **envp)
 
 	files.infile = av[1];
 	files.outfile = av[ac - 1];
-	create_outfile(files.outfile, OUTFILE);
 	lst_cmd = get_lst_cmd(ac, av);
 	multi_pipex(files, lst_cmd, envp);
 	while (lst_cmd)

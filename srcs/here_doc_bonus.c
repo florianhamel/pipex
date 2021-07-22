@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 15:47:26 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/18 18:18:47 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/22 17:06:25 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	here_doc_last(int fd_next, t_files files, t_cmd *cmd, char **envp)
 	int			outfile;
 	char *const	*args;
 	pid_t		pid;
+	int			status;
 
 	outfile = -1;
 	args = NULL;
@@ -54,15 +55,16 @@ void	here_doc_last(int fd_next, t_files files, t_cmd *cmd, char **envp)
 			ft_exit(NULL);
 	}
 	close(fd_next);
-	waitpid(pid, NULL, 0);
-	check_cmd_found(cmd, envp);
+	waitpid(pid, &status, 0);
+	if (WEXITSTATUS(status) != 0)
+		exit(WEXITSTATUS(status));
 }
 
 int	here_doc_first(const char *lim, t_files files, t_cmd *cmd, char **envp)
 {
 	int			fd_hd[2];
 	int			fd[2];
-	char *const	*args;
+	char		**args;
 	pid_t		pid;
 
 	if (pipe(fd_hd) == FAILURE || pipe(fd) == FAILURE)
@@ -78,8 +80,7 @@ int	here_doc_first(const char *lim, t_files files, t_cmd *cmd, char **envp)
 		args = get_args(cmd, envp);
 		dup_stdio(fd_hd[0], fd[1]);
 		pipe_closing(fd_hd);
-		if (execve(args[0], args, envp))
-			ft_exit(NULL);
+		ft_execve(args, envp);
 	}
 	close (fd[1]);
 	pipe_closing(fd_hd);

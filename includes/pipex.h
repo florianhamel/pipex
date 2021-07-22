@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 22:46:38 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/18 16:35:07 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/22 18:00:25 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void		start_pipex(int ac, char **av, char **envp);
 void		check_cmd_found(t_cmd *cmd, char **envp);
 char		*concat_path_bin(const char *path, const char *name_bin);
 char		*path_maker(char **arr_paths, const char *name_bin);
+char		*get_bin(t_cmd *cmd);
 char		*get_path_bin(t_cmd *cmd, char **envp);
 
 /*
@@ -75,6 +76,8 @@ void		pipex(t_files files, t_cmd *lst_cmd, char **envp);
 void		*alloc(size_t size, size_t len);
 int			str_is_ws(const char *str);
 void		create_outfile(char *file_name, int mode);
+void		ft_execve(char **args, char **envp);
+void		init_first(int *infile, char ***args);
 
 /*
 ** free_exit.c

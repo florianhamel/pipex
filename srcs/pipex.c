@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 14:02:39 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/18 23:50:28 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/22 17:59:57 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ char	**get_args(t_cmd *cmd, char **envp)
 
 	if (str_is_ws(cmd->data))
 		exit_wrong_cmd(cmd);
-	path_bin = get_path_bin(cmd, envp);
+	path_bin = get_bin(cmd);
+	if (!path_bin)
+		path_bin = get_path_bin(cmd, envp);
 	args = ft_split(cmd->data, ' ');
 	ft_free((void **)&args[0]);
 	args[0] = path_bin;
@@ -54,23 +56,23 @@ int	pipex_first(t_files files, t_cmd *cmd, char **envp)
 
 	if (pipe(fd) == FAILURE)
 		ft_exit(NULL);
-	infile = -1;
-	args = NULL;
+	init_first(&infile, &args);
 	pid = fork();
 	if (pid < 0)
 		ft_exit(NULL);
 	else if (pid == CHILD)
 	{
 		infile = check_and_open(files.infile, INFILE, cmd);
+		create_outfile(files.outfile, OUTFILE);
 		args = get_args(cmd, envp);
 		dup_stdio(infile, fd[1]);
 		close(infile);
 		pipe_closing(fd);
-		if (execve(args[0], (char *const *)args, envp) == FAILURE)
-			ft_exit(NULL);
+		ft_execve(args, envp);
 	}
 	close(fd[1]);
 	waitpid(pid, NULL, 0);
+	create_outfile(files.outfile, OUTFILE);
 	return (fd[0]);
 }
 
@@ -79,6 +81,7 @@ void	pipex_last(int fd_next, t_files files, t_cmd *cmd, char **envp)
 	int		outfile;
 	char	**args;
 	pid_t	pid;
+	int		status;
 
 	outfile = -1;
 	args = NULL;
@@ -96,8 +99,9 @@ void	pipex_last(int fd_next, t_files files, t_cmd *cmd, char **envp)
 			ft_exit(NULL);
 	}
 	close(fd_next);
-	waitpid(pid, NULL, 0);
-	check_cmd_found(cmd, envp);
+	waitpid(pid, &status, 0);
+	if (WEXITSTATUS(status) != 0)
+		exit(WEXITSTATUS(status));
 }
 
 void	pipex(t_files files, t_cmd *lst_cmd, char **envp)
