@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/17 18:37:14 by fhamel            #+#    #+#             */
-/*   Updated: 2021/07/17 21:12:02 by fhamel           ###   ########.fr       */
+/*   Updated: 2021/07/22 19:23:41 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,14 @@ void	ft_exit(const char *str_error)
 
 void	exit_wrong_cmd(t_cmd *cmd)
 {
-	ft_putstr_fd((char *)cmd->data, STDERR_FILENO);
+	char	**arr_cmd;
+
+	arr_cmd = ft_split(cmd->data, ' ');
+	ft_putstr_fd(arr_cmd[0], STDERR_FILENO);
 	ft_free_lst(cmd);
 	ft_putstr_fd(": ", STDERR_FILENO);
 	ft_putstr_fd("Command not found\n", STDERR_FILENO);
+	ft_free_arr(arr_cmd);
 	exit(127);
 }
 
